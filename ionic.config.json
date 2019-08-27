@@ -1,5 +1,7 @@
 {
   "name": "newlights",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

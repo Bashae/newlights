@@ -1,14 +1,51 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
+  <!-- <section>
+    <h1>Find Lights Nearby</h1>
+    <ion-input type="text" placeholder="Type in an address"></ion-input>
+  </section>
+  <section>
+    <ion-button>Use your current location.</ion-button>
+  </section> -->
+  <h1 class="title">Lights</h1>
+  <ion-card>
+    <ion-card-header>
+      <!-- <ion-card-subtitle>Search for Lights nearby.</ion-card-subtitle> -->
+      <ion-card-title>Search for Lights nearby.</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-input type="text" placeholder="Type in a location."></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-button size="full" fill="outline" shape="round"><ion-icon name="locate" slot="start"></ion-icon>Use My Location</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>Keep Location Updated?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-segment (ionChange)="segmentChanged($event)" value="yes">
+          <ion-segment-button value="yes">
+            <ion-label>Yes</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="no">
+            <ion-label>No</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      <p>This may make it easier for you to keep track of locations on the move.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-button size="full" fill="outline" shape="round" (click)="saveSettings()">Continue</ion-button>
+    </ion-card-content>
+  </ion-card>
+  
 </ion-content>
