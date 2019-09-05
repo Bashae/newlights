@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from '@ionic/angular';
 import { LocationPage } from '../location/location.page';
+import { AddLocationPage } from '../add-location/add-location.page';
 
 
 @Component({
@@ -15,9 +16,16 @@ export class ListPage {
     public modalCtrl: ModalController
   ) { }
 
-  async presentModal() {
+  async presentLocationModal() {
     const modal = await this.modalCtrl.create({
       component: LocationPage
+    });
+    return await modal.present();
+  }
+
+  async presentAddLocationModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddLocationPage
     });
     return await modal.present();
   }

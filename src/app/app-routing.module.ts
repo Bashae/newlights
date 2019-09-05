@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'landing', loadChildren: './landing/landing.module#LandingPageModule' },
   { path: 'list', loadChildren: './list/list.module#ListPageModule' },
   { path: 'location', loadChildren: './location/location.module#LocationPageModule' },
+  { path: 'add-location', loadChildren: './add-location/add-location.module#AddLocationPageModule' },
   // { path: 'listed', loadChildren: './listed/listed.module#ListedPageModule' },
   // { path: 'map', loadChildren: './map/map.module#MapPageModule' },
 ];

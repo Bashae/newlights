@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script|Lobster&display=swap');
+
+h1.title {
+    font-family: "Lobster";
+    font-size: 60px;
+    text-align: center;
+    color: #aaa;
+    -webkit-text-stroke: 1px black;
+}
+
+ion-slides {
+    height: 100%;
+}
+
+ion-slide {
+    height: 100%;
+}
+
+ion-input {
+    margin-top: 50px;
+}
+
+.hide-on-focus {
+    &.hide {
+        display: none;
+    }
+}
+
+.button-container--bottom {
+    height: 10%;
+    padding: 0;
+    margin: 0;
+
+    ion-row, ion-col {
+        padding: 0;
+        margin: 0;
+    }
+
+    ion-button {
+        --border-radius: 0;
+    }
+}
+
+ion-datetime {
+    padding: 10px 0 0 0;
+    margin: 0;
+}

@@ -15,14 +15,22 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import * as firebase from 'firebase/app';
+// import * as firebase from '@angular/fire/firebase.app.module'
 
 // environment
 import { environment } from '../environments/environment';
 import { LocationPage } from './location/location.page';
+import { AddLocationPage } from './add-location/add-location.page';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { FormsModule } from '@angular/forms';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+
+firebase.initializeApp(environment.firebase);
 @NgModule({
-  declarations: [AppComponent, LocationPage],
-  entryComponents: [LocationPage],
+  declarations: [AppComponent, LocationPage, AddLocationPage],
+  entryComponents: [LocationPage, AddLocationPage],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
@@ -31,11 +39,14 @@ import { LocationPage } from './location/location.page';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleMaps,
+    ImagePicker,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

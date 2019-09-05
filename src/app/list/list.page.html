@@ -10,4 +10,10 @@
       <ion-label>Map</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 75px;" color="light">
+    <ion-fab-button (click)="presentAddLocationModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-tabs>

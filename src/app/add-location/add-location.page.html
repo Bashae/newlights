@@ -1,0 +1,132 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()" style="display: block;"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-slides #slides id="slides" page="true">
+    <ion-slide>
+      <ion-grid>
+        <ion-row class="hide-on-focus">
+          <ion-col>
+            <h1 class="title">Let's add a Location!</h1>
+          </ion-col>
+        </ion-row>
+        <ion-row class="hide-on-focus">
+          <ion-col>
+            <h2 style="text-align: center;">
+              Where is it located?
+            </h2>
+          </ion-col>
+        </ion-row>
+        <ion-row class="hide-on-focus">
+          <ion-col>
+            <ion-button (click)="selectMyLocation()" style="margin: 0 auto;" fill="outline" shape="round">
+              Use my current location
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-searchbar [(ngModel)]="autocomplete.input" (ionFocus)="hideTopContent()" (ionInput)="updateSearchResults()" placeholder="Search for a place"></ion-searchbar>
+            <ion-list [hidden]="autocompleteItems.length == 0">
+              <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)">
+                {{ item.description }}
+              </ion-item>
+            </ion-list>
+            <ion-button (click)="selectTextResult()" fill="outline" shape="round">
+              Next
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <!-- <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <ion-input type="text" placeholder="Description"></ion-input>
+              
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+              <ion-button>
+                  Next
+                </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide> -->
+    <ion-slide style="display: block;">
+      <div style="height: 60%;width: 100%;display:block;max-width:100%;" #map id="map"></div>
+      <ion-grid style="height: 30%;">
+        <ion-row>
+          <ion-col>
+            <h2 style="font-size: 20px;">{{ mapLocation }}</h2>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="backToLocation()" fill="outline" shape="round" style="width: 100%;height: 50px;">Change Location</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="button-container--bottom">
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="addMoreInfo()" fill="clear" style="width: 100%;height: 50px;">Add More Info</ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button (click)="addLocation()" fill="clear" style="width: 100%;height: 50px;">Finish Up</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+    <ion-slide>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h4>More Details</h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <img (click)="openImagePicker()" style="border: 5px solid #888;" src="assets/images/placeholder.jpg">
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <form>
+              <ion-list>
+                <ion-item>
+                  <ion-textarea placeholder="Write a Description."></ion-textarea>
+                </ion-item>
+              </ion-list>
+              <ion-grid>
+                <ion-row>
+                  <ion-col>
+                    <ion-label>Time Start:</ion-label>
+                    <ion-datetime displayFormat="h:mm A" placeholder="Select Time"></ion-datetime>
+                  </ion-col> 
+                  <ion-col>
+                    <ion-label>Time Start:</ion-label>
+                    <ion-datetime displayFormat="h:mm A" placeholder="Select Time"></ion-datetime>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button (click)="addLocation()" expand="full" fill="outline" shape="round">Finish and Add Location</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
