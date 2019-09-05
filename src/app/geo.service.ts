@@ -18,6 +18,6 @@ export class GeoService {
     const field = 'pos';
     let center = this.getGeoPoint(lat, lon);
 
-    return this.geo.collection('groups').within(center, rad, field);
+    return this.geo.collection('l').within(center, rad, field);
   }
 }

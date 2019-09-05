@@ -45,6 +45,7 @@ export class HomePage {
       console.log('Selecting Location.');
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         console.log('Location Selected');
+        console.log(myLocation.latLng);
         this.getLocationsByGeo(myLocation.latLng);
 
         // myLocation = 
@@ -66,7 +67,9 @@ export class HomePage {
 
     getLocationsByGeo(latLng) {
       console.log('Getting Nearby Locations');
-      let groups = this.geo.getAreaLocations(latLng.lat, latLng.lon, 10);
+      console.log(latLng.lat);
+      console.log(latLng.lng);
+      let groups = this.geo.getAreaLocations(latLng.lat, latLng.lng, 10);
     
       groups.subscribe(res => {
         console.log('the locations are');
