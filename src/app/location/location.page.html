@@ -2,14 +2,63 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
       </ion-button>
     </ion-buttons>
-    Lights Location
+    {{ selectedLocation.ad.num }} {{ selectedLocation.ad.str }}
   </ion-toolbar>
 </ion-header>
   
 <ion-content>
+  <img src="/assets/images/pretty-house.jpg" width="100%">
 
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="info" checked>
+      <ion-label class="label--segment"><ion-icon name="paper" class="icon--tab"></ion-icon></ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="gallery">
+      <ion-label class="label--segment"><ion-icon name="images" class="icon--tab"></ion-icon></ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="comments">
+      <ion-label class="label--segment"><ion-icon name="chatbubbles" class="icon--tab"></ion-icon></ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ion-list *ngIf="selectedTab == 'info'">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="9">
+          <h1>{{ selectedLocation.ad.num }} {{ selectedLocation.ad.str }}</h1>
+          <h2>{{ selectedLocation.ad.ci }} {{ selectedLocation.ad.st }}, {{ selectedLocation.ad.zip }}</h2>
+        </ion-col>
+        <ion-col size="3">
+          <ion-button fill="clear">
+            <ion-icon slot="icon-only" name="navigate"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <p class="description">This house is a cozy home that has a lot of scary things in the yard and they also serve candy and stuff so yeah.</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h3>Show starts at: </h3>
+          <p class="time">8:00 PM</p>
+        </ion-col>
+        <ion-col>
+          <h3>Show ends at: </h3>
+          <p class="time">10:00 PM</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+
+  <ion-list *ngIf="selectedTab == 'gallery'">Gallery</ion-list>
+  <ion-list *ngIf="selectedTab == 'comments'">Comments</ion-list>
 </ion-content>

@@ -1,0 +1,48 @@
+h1 {
+    font-size: 22px;
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 0px;
+}
+
+h2 {
+    font-size: 16px;
+    padding: 0;
+    margin-top: 0;
+}
+
+h3, .time {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h3 { 
+    color: #333;
+    font-weight: lighter;
+    font-size: 16px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.time {
+    margin-top: 10px;
+    font-size: 22px;
+}
+
+.description {
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.icon--tab {
+    font-size: 26px;
+}
+
+.label--segment {
+    margin: 0;
+    padding: 10px;
+}

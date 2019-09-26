@@ -10,6 +10,7 @@ import { AddLocationPage } from '../add-location/add-location.page';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage {
+  nearbyLocations: any = [];
 
   constructor(
     public nav: NavController,

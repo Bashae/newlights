@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script|Lobster&display=swap');
 
+ion-content {
+    --background: #fff url("/assets/images/halloween3.jpg") no-repeat top center / cover;
+}
+
 h1.title {
     font-family: "Lobster";
     font-size: 60px;
@@ -14,6 +18,10 @@ ion-slides {
 
 ion-slide {
     height: 100%;
+}
+
+ion-card {
+    background: white;
 }
 
 ion-input {

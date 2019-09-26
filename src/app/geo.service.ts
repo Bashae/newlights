@@ -7,6 +7,8 @@ import * as geofirex from 'geofirex';
 })
 export class GeoService {
   geo = geofirex.init(firebase);
+  nearbyLocations: any = [];
+  currentLocation: any = {};
 
   constructor() { }
 
@@ -19,5 +21,9 @@ export class GeoService {
     let center = this.getGeoPoint(lat, lon);
 
     return this.geo.collection('l').within(center, rad, field);
+  }
+
+  setCurrentLocation(loc) {
+    this.currentLocation = {lat: loc.lat, lon: loc.lng};
   }
 }

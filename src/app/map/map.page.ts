@@ -10,6 +10,7 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, OnInit } from '@angular/core';
+import { GeoService } from '../geo.service';
 
 @Component({
   selector: 'app-map',
@@ -19,14 +20,12 @@ import { Component, OnInit } from '@angular/core';
 export class MapPage implements OnInit {
   map: GoogleMap;
 
-  constructor() { }
+  constructor(
+    public geo: GeoService
+  ) { }
 
   ngOnInit() {
     this.loadMap();
-  }
-
-  ionViewDidLoad() {
-    
   }
 
   loadMap() {
@@ -37,11 +36,13 @@ export class MapPage implements OnInit {
       'API_KEY_FOR_BROWSER_DEBUG': 'AIzaSyCLj4o-j0JRdnX80PE5NpY1WbWvjYbPB4Y'
     });
 
+    console.log(this.geo.currentLocation);
+
     let mapOptions: GoogleMapOptions = {
       camera: {
          target: {
-           lat: 43.0741904,
-           lng: -89.3809802
+           lat: this.geo.currentLocation.lat,
+           lng: this.geo.currentLocation.lon
          },
          zoom: 18,
          tilt: 30
@@ -50,18 +51,29 @@ export class MapPage implements OnInit {
 
     this.map = GoogleMaps.create('map_canvas', mapOptions);
 
-    let marker: Marker = this.map.addMarkerSync({
-      title: 'Ionic',
-      icon: 'blue',
-      animation: 'DROP',
-      position: {
-        lat: 43.0741904,
-        lng: -89.3809802
-      }
+    this.geo.nearbyLocations.forEach(loc => {
+      // loc.pos.geopoint.latitude
+      let marker: Marker = this.map.addMarkerSync({
+        title: loc.ad,
+        icon: 'orange',
+        animation: 'DROP',
+        position: {
+          lat: loc.pos.geopoint.latitude,
+          lng: loc.pos.geopoint.longitude
+        }
+      });
     });
-    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
-      alert('clicked');
-    });
-  }
 
+    // for(var i = 0; i < this.geo.nearbyLocations.length; i++) {
+    //   let marker: Marker = this.map.addMarkerSync({
+    //     title: this.geo.nearbyLocations[i].ad,
+    //     icon: 'orange',
+    //     animation: 'DROP',
+    //     position: {
+    //       lat: this.geo.nearbyLocations[i].geopoint._lat,
+    //       lng: this.geo.nearbyLocations[i].geopoint._long
+    //     }
+    //   });
+    // }
+  }
 }

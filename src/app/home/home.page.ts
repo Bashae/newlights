@@ -26,9 +26,17 @@ declare var google;
 })
 export class HomePage {
   GoogleAutocomplete = new google.maps.places.AutocompleteService();
+  GoogleGeocoder = new google.maps.Geocoder();
+  map: GoogleMap;
+
+  newLocation: any = {};
+  mapLocation: any = "Address";
+  mapLocationId: any;
 
   autocomplete = { input: '' };
   autocompleteItems = [];
+
+  selected_location: any;
 
   constructor(
     private nav: NavController,
@@ -46,6 +54,7 @@ export class HomePage {
       LocationService.getMyLocation().then((myLocation: MyLocation) => {
         console.log('Location Selected');
         console.log(myLocation.latLng);
+        this.geo.setCurrentLocation(myLocation.latLng);
         this.getLocationsByGeo(myLocation.latLng);
 
         // myLocation = 
@@ -66,19 +75,80 @@ export class HomePage {
     }
 
     getLocationsByGeo(latLng) {
-      console.log('Getting Nearby Locations');
-      console.log(latLng.lat);
-      console.log(latLng.lng);
       let groups = this.geo.getAreaLocations(latLng.lat, latLng.lng, 10);
+      let _that = this;
     
       groups.subscribe(res => {
-        console.log('the locations are');
-        console.log(res);
+        _that.geo.nearbyLocations = res;
+        _that.nav.navigateRoot('/list/listed');
       });
     }
 
     saveSettings() {
+      this.selectTextResult();
       this.nav.navigateRoot('/list/listed');
+    }
+
+    updateSearchResults(){
+      if (this.autocomplete.input == '') {
+        this.autocompleteItems = [];
+        return;
+      }
+      this.GoogleAutocomplete.getPlacePredictions({ input: this.autocomplete.input },
+      (predictions, status) => {
+        this.autocompleteItems = [];
+        if(predictions !== null) {
+          predictions.forEach((prediction) => {
+            this.autocompleteItems.push(prediction);
+          });
+        }
+      });
+    }
+
+    reverseGeoCodeLocation(addy) {
+      let _that = this;
+      this.GoogleGeocoder.geocode({'address': addy}, function(results, status) {
+        console.log('status is');
+        console.log(status);
+        console.log('results is');
+        console.log(results);
+        if (status === 'OK') {
+          if (results[0]) {
+            let location = results[0].geometry.location;
+            let lat = location.lat();
+            let lng = location.lng();
+            
+            let groups = _that.geo.getAreaLocations(lat, lng, 10);
+            _that.geo.currentLocation = {'lat': lat, 'lon': lng};
+          
+            groups.subscribe(res => {
+              _that.geo.nearbyLocations = res;
+              _that.nav.navigateRoot('/list/listed');
+            });
+
+          } else {
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+    }
+
+    selectSearchResult(item) {
+      this.selected_location = item;
+      this.autocomplete = {input: ''};
+      this.autocompleteItems = [];
+  
+      this.mapLocation = item.description;
+      this.reverseGeoCodeLocation(item.description);
+    }
+  
+    selectTextResult() {
+      if(this.autocomplete.input) {
+        this.mapLocation = this.autocomplete.input;
+        this.reverseGeoCodeLocation(this.autocomplete.input);
+      }
     }
 
 }

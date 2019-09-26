@@ -11,7 +11,13 @@
     </ion-tab-button>
   </ion-tab-bar>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="bottom: 75px;" color="light">
+  <ion-fab vertical="top" horizontal="start" slot="fixed" color="light">
+    <ion-fab-button href="/index.html">
+      <ion-icon name="search"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="start" style="bottom: 75px;" slot="fixed" color="light">
     <ion-fab-button (click)="presentAddLocationModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

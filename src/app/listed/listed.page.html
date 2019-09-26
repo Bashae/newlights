@@ -1,15 +1,43 @@
 <ion-content>
   <h1 class="title">Lights</h1>
 
-  <ion-card>
+  <!-- <ion-card *ngFor="let loc of geo.nearbyLocations" [geo_id]="loc.geo_id" [id]="loc.id" [geohash]="loc.geohash"> -->
+  <ion-card *ngFor="let loc of geo.nearbyLocations" (click)="viewLocation(loc)">
     <ion-card-header>
       <ion-card-subtitle>
-        Concord NC, 28027
+        {{ loc.ad.ci }} {{ loc.ad.st }}, {{ loc.ad.zip }}
       </ion-card-subtitle>
       <ion-card-title>
-        378 Cliffwood Street
+        {{ loc.ad.num }} {{ loc.ad.str }}
       </ion-card-title>
     </ion-card-header>
+    <ion-card-content>
+      <img src="/assets/images/pretty-house.jpg">
+      <ion-button expand="full" shape="round" fill="outline">
+        <ion-icon name="navigate" slots="icon-only"></ion-icon>
+      </ion-button>
+    </ion-card-content>
   </ion-card>
+
+  <!-- ad:
+ci: "Concord"
+co: "US"
+ln: "378 Cliffwood St NW, Concord, NC 28027, USA"
+num: "378"
+st: "NC"
+str: "Cliffwood St NW"
+zip: "28027"
+__proto__: Object -->
+
+  <!--
+  geo_id: "ChIJC1HppNphwokRgWuoJAb2v6A"
+  id: "pdFrb1czY39vS3K7JTzF"
+  pos:
+  geohash: "dr5xc58cy"
+  geopoint: GeoPoint {_lat: 40.7568384, _long: -73.7828864}
+  __proto__: Object
+  queryMetadata:
+  bearing: 0
+  distance: 0 -->
 </ion-content>
 

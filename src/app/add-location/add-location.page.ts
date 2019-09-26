@@ -12,7 +12,7 @@ import {
 } from '@ionic-native/google-maps';
 
 import { Component, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { IonSlides, ModalController} from '@ionic/angular';
+import { IonSlides, ModalController, Events} from '@ionic/angular';
 import { FirebaseService } from '../firebase.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { GeoService } from '../geo.service';
@@ -32,6 +32,7 @@ export class AddLocationPage {
 
   newLocation: any = {};
   mapLocation: any = "Address";
+  mapLocationLN: any = "Address Long Name";
   mapLocationId: any;
 
   autocomplete = { input: '' };
@@ -44,7 +45,8 @@ export class AddLocationPage {
     public changeRef: ChangeDetectorRef,
     public firebaseService: FirebaseService,
     public geo: GeoService,
-    public imagePicker: ImagePicker
+    public imagePicker: ImagePicker,
+    public ev: Events
   ) { }
 
   backToLocation() {
@@ -123,9 +125,18 @@ export class AddLocationPage {
     this.GoogleGeocoder.geocode({'location': loc}, function(results, status) {
       if (status === 'OK') {
         let location = results[0];
-        _that.mapLocation = location['formatted_address'];
+
+        console.log('yo location');
+          console.log(location);
+        
+        _that.mapLocation = location['address_components'];
+        _that.mapLocationLN = location['formatted_address'];
         _that.mapLocationId = location['place_id'];
+
         _that.changeRef.detectChanges();
+        _that.newLocation.lat = loc.lat;
+        _that.newLocation.lon = loc.lng;
+
         _that.slides.slideNext().then(function() {
            _that.buildLocationMap(loc.lat, loc.lng);
         });
@@ -138,10 +149,47 @@ export class AddLocationPage {
     this.GoogleGeocoder.geocode({'address': addy}, function(results, status) {
       if (status === 'OK') {
         if (results[0]) {
-          let location = results[0].geometry.location;
+
+          
+          let location = results[0];
+          let latLng = location.geometry.location;
+
+          console.log('yo location');
+          console.log(location);
+          
+          _that.mapLocation = location['address_components'];
+          _that.mapLocationLN = location['formatted_address'];
+          _that.mapLocationId = location['place_id'];
+
+          _that.newLocation.lat = latLng.lat();
+          _that.newLocation.lon = latLng.lng();
+
+          // 0: {long_name: "378", short_name: "378", types: Array(1)}
+          // 1: {long_name: "Cliffwood Street Northwest", short_name: "Cliffwood St NW", types: Array(1)}
+          // 2: {long_name: "Concord", short_name: "Concord", types: Array(2)}
+          // 3: {long_name: "2, Poplar Tent", short_name: "2, Poplar Tent", types: Array(2)}
+          // 4: {long_name: "Cabarrus County", short_name: "Cabarrus County", types: Array(2)}
+          // 5: {long_name: "North Carolina", short_name: "NC", types: Array(2)}
+          // 6: {long_name: "United States", short_name: "US", types: Array(2)}
+          // 7: {long_name: "28027", short_name: "28027", types: Array(1)}
+          // 8: {long_name: "0776", short_name: "0776", types: Array(1)}
+          // length: 9
+          // __proto__: Array(0)
+          // formatted_address: "378 Cliffwood St NW, Concord, NC 28027, USA"
+          // geometry:
+          // bounds: _.Qd {na: Pd, ja: Ld}
+          // location: _.Q {lat: ƒ, lng: ƒ}
+          // location_type: "ROOFTOP"
+          // viewport: _.Qd {na: Pd, ja: Ld}
+          // __proto__: Object
+          // place_id: "ChIJRelVO5oPVIgR85-Xf-2TC8A"
+          // types: ["premise"]
+
+
+          // console.log(results[0]);
           _that.showTopContent();
           _that.slides.slideNext().then(function() {
-            _that.buildLocationMap(location.lat(), location.lng());
+            _that.buildLocationMap(latLng.lat(), latLng.lng());
           })
         } else {
           window.alert('No results found');
@@ -155,7 +203,6 @@ export class AddLocationPage {
   selectMyLocation() {
     LocationService.getMyLocation().then((myLocation: MyLocation) => {
       this.forwardGeoCodeLocation(myLocation.latLng);
-      this.newLocation.latLng = myLocation.latLng;
 
       // myLocation = 
       //   accuracy: 205243
@@ -206,16 +253,24 @@ export class AddLocationPage {
 
   addLocation() {
     let _that = this;
-    let loc = {pos: {}};
+    let loc = {pos: {}, ad:{}};
 
+    let street_address = this.mapLocation;
+    loc.ad['num'] = street_address[0]['short_name'];
+    loc.ad['str'] = street_address[1]['short_name'];
+    loc.ad['ci'] = street_address[2]['short_name'];
+    loc.ad['st'] = street_address[5]['short_name'];
+    loc.ad['co'] = street_address[6]['short_name'];
+    loc.ad['zip'] = street_address[7]['short_name'];
+    loc.ad['ln'] = this.mapLocationLN;
 
-    loc['ad'] = this.mapLocation;
     loc['geo_id'] = this.mapLocationId;
-    loc['pos']['geohash'] = this.geo.getGeoPoint(this.newLocation.latLng.lat, this.newLocation.latLng.lng).hash;
-    loc['pos']['geopoint'] = new firebase.firestore.GeoPoint(this.newLocation.latLng.lat, this.newLocation.latLng.lng)
+    loc['pos']['geohash'] = this.geo.getGeoPoint(this.newLocation.lat, this.newLocation.lon).hash;
+    loc['pos']['geopoint'] = new firebase.firestore.GeoPoint(this.newLocation.lat, this.newLocation.lon)
     
     this.firebaseService.addLocation(loc).then(function(res) {
       console.log(res);
+      _that.ev.publish('location:created', loc);
       _that.modalController.dismiss();
     });
   }

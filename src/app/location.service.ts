@@ -5,7 +5,8 @@ import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/fire
   providedIn: 'root'
 })
 export class LocationService {
-  locCollection: AngularFirestoreCollection
+  locCollection: AngularFirestoreCollection;
+  currentLocation: any;
 
   constructor(
     public afs: AngularFirestore
