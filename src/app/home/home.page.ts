@@ -16,6 +16,7 @@ import { NavController } from '@ionic/angular';
 import { SearchService } from '../search.service';
 import { Router } from '@angular/router';
 import { GeoService } from '../geo.service';
+import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free/ngx';
 
 declare var google;
 
@@ -42,11 +43,20 @@ export class HomePage {
     private nav: NavController,
     private routes: Router,
     public search: SearchService,
-    public geo: GeoService
-    ) {}
-
-    zipCodeSearch() {
-      
+    public geo: GeoService,
+    public admobFree: AdMobFree
+    ) {
+      const bannerConfig: AdMobFreeBannerConfig = {
+        id: "ca-app-pub-9536593816039958/9454480741",
+        isTesting: true,
+        autoShow: true
+      };
+      this.admobFree.banner.config(bannerConfig);
+      this.admobFree.banner.prepare()
+        .then(() => {
+          console.log('showing ad');
+        })
+        .catch(e => console.log(e));
     }
 
     selectMyLocation() {

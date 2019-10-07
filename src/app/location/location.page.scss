@@ -26,6 +26,13 @@ h3 {
     padding-bottom: 5px;
 }
 
+.spacer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-top: 1px solid #ccc;
+    // border-bottom: 1px solid #ccc;
+}
+
 .time {
     margin-top: 10px;
     font-size: 22px;
@@ -45,4 +52,17 @@ h3 {
 .label--segment {
     margin: 0;
     padding: 10px;
+}
+
+.section--comments h2 {
+    margin-bottom: 10px;
+}
+
+.section--comments ion-label, .section--comments ion-label p {
+    text-overflow: unset;
+    overflow: auto;
+    height: auto;
+    width: 100%;
+    overflow-wrap: normal;
+    white-space: normal;
 }

@@ -28,6 +28,18 @@
   <ion-list *ngIf="selectedTab == 'info'">
     <ion-grid>
       <ion-row>
+        <ion-col (click)="loadRatings('comments')">
+          <h4 style="text-align: center;"><span style="font-size: 30px;font-weight: bold;">4</span> / 5</h4>
+          <ul style="list-style-type: none;width: 100%;padding: 0;margin: 0 auto;width: 70%;">
+            <li style="display: inline-block;width: 20%;text-align: center;"><ion-icon name="star" style="color: orange;font-size: 40px;"></ion-icon></li>
+            <li style="display: inline-block;width: 20%;text-align: center;"><ion-icon name="star" style="color: orange;font-size: 40px;"></ion-icon></li>
+            <li style="display: inline-block;width: 20%;text-align: center;"><ion-icon name="star" style="color: orange;font-size: 40px;"></ion-icon></li>
+            <li style="display: inline-block;width: 20%;text-align: center;"><ion-icon name="star" style="color: orange;font-size: 40px;"></ion-icon></li>
+            <li style="display: inline-block;width: 20%;text-align: center;"><ion-icon name="star" style="color: grey;font-size: 40px;"></ion-icon></li>
+          </ul>
+        </ion-col>
+      </ion-row>
+      <ion-row class="spacer">
         <ion-col size="9">
           <h1>{{ selectedLocation.ad.num }} {{ selectedLocation.ad.str }}</h1>
           <h2>{{ selectedLocation.ad.ci }} {{ selectedLocation.ad.st }}, {{ selectedLocation.ad.zip }}</h2>
@@ -38,14 +50,14 @@
           </ion-button>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row class="spacer">
         <ion-col>
           <p class="description">This house is a cozy home that has a lot of scary things in the yard and they also serve candy and stuff so yeah.</p>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-grid>
+    <!-- <ion-grid>
       <ion-row>
         <ion-col>
           <h3>Show starts at: </h3>
@@ -56,9 +68,43 @@
           <p class="time">10:00 PM</p>
         </ion-col>
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
   </ion-list>
 
-  <ion-list *ngIf="selectedTab == 'gallery'">Gallery</ion-list>
-  <ion-list *ngIf="selectedTab == 'comments'">Comments</ion-list>
+  <ion-list *ngIf="selectedTab == 'gallery'" class="section--gallery">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-list>
+  <ion-list *ngIf="selectedTab == 'comments'" class="section--comments">
+    <ion-item>
+      <ion-label>
+        <h2>Andrew Ice</h2>
+        <p>This place was pretty cool.  I really enjoyed the way it looked.</p>
+      </ion-label>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>
+        <h2>Kayla Sarahs</h2>
+        <p>I also enjoyed this place and though it was pretty neat.</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="selectedTab == 'gallery'">
+    <ion-fab-button (click)="presentAddImagePopover(event)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="selectedTab == 'comments'">
+    <ion-fab-button (click)="presentAddCommentPopover(event)">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

@@ -6,11 +6,11 @@
   <section>
     <ion-button>Use your current location.</ion-button>
   </section> -->
-  <h1 class="title">Lights</h1>
+  <h1 class="title">Halloween!</h1>
   <ion-card>
     <ion-card-header>
       <!-- <ion-card-subtitle>Search for Lights nearby.</ion-card-subtitle> -->
-      <ion-card-title>Search for Lights nearby.</ion-card-title>
+      <ion-card-title>Search for Homes nearby.</ion-card-title>
     </ion-card-header>
   
     <ion-card-content>
@@ -33,6 +33,27 @@
   <ion-card>
     <ion-card-header>
       <ion-card-subtitle></ion-card-subtitle>
+      <ion-card-title>What are you looking for?</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment (ionChange)="segmentChanged($event)" value="home" class="selection--type">
+        <ion-segment-button value="home" checked>
+          <img src="/assets/images/pumpkin.svg" alt="pumpkin">
+        </ion-segment-button>
+        <ion-segment-button value="candy">
+          <img src="/assets/images/candy-corn.svg" alt="candy corn">
+        </ion-segment-button>
+        <ion-segment-button value="haunted-house">
+          <img src="/assets/images/castle.svg" alt="castle">
+        </ion-segment-button>
+      </ion-segment>
+      <p>This may make it easier for you to filter out unneccessary locations.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle></ion-card-subtitle>
       <ion-card-title>Keep Location Updated?</ion-card-title>
     </ion-card-header>
     <ion-card-content>
@@ -46,7 +67,7 @@
         </ion-segment>
       <p>This may make it easier for you to keep track of locations on the move.</p>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
   <ion-card>
     <ion-card-content>
