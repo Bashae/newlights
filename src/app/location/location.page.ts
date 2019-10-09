@@ -67,18 +67,4 @@ export class LocationPage implements OnInit {
     });
     return await popover.present();
   }
-
-  // async presentAddCommentModal() {
-  //   const modal = await this.modalCtrl.create({
-  //     component: AddCommentPage
-  //   });
-  //   return await modal.present();
-  // }
-
-  // async presentAddImageModal() {
-  //   const modal = await this.modalCtrl.create({
-  //     component: AddImagePage
-  //   });
-  //   return await modal.present();
-  // }
 }

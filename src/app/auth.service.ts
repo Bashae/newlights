@@ -36,13 +36,20 @@ export class AuthService {
     })
   }
 
-  login() {
+  login(email, password) {
     // this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
     // console.log(this.afAuth.authState);
     // console.log(this.isLoggedIn);
     // if(this.isLoggedIn) {
-
     // }
+    // this.afAuth.auth.isSignInWithEmailLink('ice.andrew.media@gmail.com');
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password);
+  }
+
+  registerAccount(fname, lname, email, password) {
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
+      console.log(res);
+    })
   }
 
   logout() {
