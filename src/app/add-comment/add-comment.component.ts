@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ReviewService } from '../review.service';
+import { AuthService } from '../auth.service';
+import { FirebaseService } from '../firebase.service';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-comment',
@@ -7,25 +10,47 @@ import { ReviewService } from '../review.service';
   styleUrls: ['./add-comment.component.scss'],
 })
 export class AddCommentComponent implements OnInit {
+  @Input("locationID") locationID;
   commentText: string = '';
   ratingNumber: number = 5;
   ratings = [1, 2, 3, 4, 5];
 
   constructor (
-    public reviewService: ReviewService
-  ) { 
-
-  }
+    public reviewService: ReviewService,
+    public authService: AuthService,
+    public firebaseService: FirebaseService,
+    public pop: PopoverController
+  ) { }
 
   ngOnInit () {}
 
   changeRating(num) {
-    console.log(num);
-    console.log(typeof(num));
     this.ratingNumber = num;
   }
 
   submitReview () {
+    let review = {
+      're': this.commentText,
+      'ra': this.ratingNumber,
+      'lid': this.locationID,
+      'uid': this.authService.userId,
+      'ufn': 'Andrew',
+      'uln': 'Eechi'
+    }
+
+    this.firebaseService.addReview(review).then(res => {
+      console.log('response is');
+      console.log(res);
+      this.pop.dismiss();
+    })
+
+    // Next Steps:
+    // Increase rating on location
+    // increase rating count on location
+    // consider in ratings doing a table in a table thing.
+    // Where we find all reviews based on the locationID, and then there's a table in that, that has multiple reviews.
+    // TODO Update Fake Info in Submit Review
+
     // Add rating to "Max Number"
     // Add +1 to "Amount of Ratings"
     // Use this Algorithm to determine new rating.

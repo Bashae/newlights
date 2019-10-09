@@ -24,11 +24,7 @@ export class FirebaseService {
 
   addUser(value){
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/u').add({
-        name: value.name,
-        surname: value.surname,
-        age: parseInt(value.age)
-      })
+      this.afs.collection('/u').doc(value.i).set(value)
       .then(
         (res) => {
           resolve(res)
@@ -56,6 +52,10 @@ export class FirebaseService {
         err => reject(err)
       )
     })
+  }
+
+  addReview(value) {
+    return this.afs.collection('/r').add(value);
   }
 
 }

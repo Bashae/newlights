@@ -268,6 +268,10 @@ export class AddLocationPage {
     loc['pos']['geohash'] = this.geo.getGeoPoint(this.newLocation.lat, this.newLocation.lon).hash;
     loc['pos']['geopoint'] = new firebase.firestore.GeoPoint(this.newLocation.lat, this.newLocation.lon)
     
+    loc['max'] = 0;
+    loc['amtr'] = 0;
+    loc['curr'] = 5;
+    
     this.firebaseService.addLocation(loc).then(function(res) {
       console.log(res);
       _that.ev.publish('location:created', loc);

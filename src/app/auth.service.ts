@@ -8,6 +8,9 @@ import { auth } from 'firebase/app';
 })
 export class AuthService {
   isLoggedIn = false;
+  currentUser: any; // This is the user from the 'user database'
+  firebaseUser: any; // This is the user that firebase creates, much more technical.
+  userId: string = ''; // This is the user's ID.
 
   constructor(
     public firebaseService: FirebaseService,
@@ -15,10 +18,12 @@ export class AuthService {
   ) { }
 
   addUser(value){
-    this.firebaseService.addUser(value)
-    .then( res => {
+    console.log('heres the user toadd');
+    console.log(value);
+    this.firebaseService.addUser(value).then( res => {
       console.log('created successfully');
     }, err => {
+      console.log('err');
       console.log(err)
     })
   }
@@ -27,29 +32,33 @@ export class AuthService {
     return this.isLoggedIn;
   }
 
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
   setAuthSubscription() {
+    let _that = this;
     this.afAuth.authState.subscribe(function(res) {
+      console.log('subscription event');
       console.log(res);
-      if(res != null) {
-        this.isLoggedIn = res;
+      if(res && res != null) {
+        _that.isLoggedIn = true;
+        _that.firebaseUser = res['uid'];
+        _that.setCurrentUser(res['uid']);
       }
     })
   }
 
+  setCurrentUser(uid) {
+
+  }
+
   login(email, password) {
-    // this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-    // console.log(this.afAuth.authState);
-    // console.log(this.isLoggedIn);
-    // if(this.isLoggedIn) {
-    // }
-    // this.afAuth.auth.isSignInWithEmailLink('ice.andrew.media@gmail.com');
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
-  registerAccount(fname, lname, email, password) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(res => {
-      console.log(res);
-    })
+  registerAccount(email, password) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   logout() {

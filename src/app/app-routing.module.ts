@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'list', loadChildren: './list/list.module#ListPageModule' },
   { path: 'location', loadChildren: './location/location.module#LocationPageModule' },
   { path: 'add-location', loadChildren: './add-location/add-location.module#AddLocationPageModule' },
-  { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'registration', loadChildren: './registration/registration.module#RegistrationPageModule' },
   // { path: 'listed', loadChildren: './listed/listed.module#ListedPageModule' },
   // { path: 'map', loadChildren: './map/map.module#MapPageModule' },
 ];
