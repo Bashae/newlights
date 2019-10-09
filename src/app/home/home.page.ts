@@ -17,6 +17,7 @@ import { SearchService } from '../search.service';
 import { Router } from '@angular/router';
 import { GeoService } from '../geo.service';
 import { AdMobFree, AdMobFreeBannerConfig } from '@ionic-native/admob-free/ngx';
+import { AuthService } from '../auth.service';
 
 declare var google;
 
@@ -44,7 +45,8 @@ export class HomePage {
     private routes: Router,
     public search: SearchService,
     public geo: GeoService,
-    public admobFree: AdMobFree
+    public admobFree: AdMobFree,
+    public authService: AuthService
     ) {
       const bannerConfig: AdMobFreeBannerConfig = {
         id: "ca-app-pub-9536593816039958/9454480741",
@@ -57,6 +59,8 @@ export class HomePage {
           console.log('showing ad');
         })
         .catch(e => console.log(e));
+
+        this.authService.setAuthSubscription();
     }
 
     selectMyLocation() {

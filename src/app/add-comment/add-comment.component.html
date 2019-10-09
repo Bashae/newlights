@@ -1,13 +1,21 @@
 <ion-list>
   <ion-list-header>
-    Leave a Comment
+    Leave a Review
   </ion-list-header>
+  <ul class="container--rating">
+    <!-- <li *ngFor="let rate of ratings;let i = index;"><ion-icon name="star" (click)="changeRating(i)"></ion-icon></li> -->
+    <li><ion-icon name="star" (click)="changeRating(1)" class="highlight"></ion-icon></li>
+    <li><ion-icon name="star" (click)="changeRating(2)" [class.highlight]="ratingNumber >= 2"></ion-icon></li>
+    <li><ion-icon name="star" (click)="changeRating(3)" [class.highlight]="ratingNumber >= 3"></ion-icon></li>
+    <li><ion-icon name="star" (click)="changeRating(4)" [class.highlight]="ratingNumber >= 4"></ion-icon></li>
+    <li><ion-icon name="star" (click)="changeRating(5)" [class.highlight]="ratingNumber == 5"></ion-icon></li>
+  </ul>
   <ion-item>
-    
+    <ion-textarea placeholder="Add your comment here" [(ngModel)]="commentText">
+
+    </ion-textarea>
   </ion-item>
-  <ion-item>
-    <ion-button fill="outline" expand="full" shape="round">
-      Add Comment
-    </ion-button>
-  </ion-item>
+  <ion-button fill="outline" expand="full" shape="round" (click)="submitReview()">
+    Submit Review
+  </ion-button>
 </ion-list>

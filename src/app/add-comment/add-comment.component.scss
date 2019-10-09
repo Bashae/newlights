@@ -1,0 +1,27 @@
+.container--rating {
+    list-style-type: none;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    width: 70%;
+
+    li {
+        color: #333;
+        display: inline-block;
+        width: 20%;
+        text-align: center;
+
+        ion-icon.highlight {
+            color: rgb(255, 208, 0);
+        }
+    }
+
+    ion-icon {
+        font-size: 40px;
+    }
+}
+
+ion-button {
+    margin: 10px auto 5px auto;
+    width: 90%;
+}

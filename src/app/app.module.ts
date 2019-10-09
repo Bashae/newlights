@@ -30,11 +30,12 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { AdMobFree } from '@ionic-native/admob-free/ngx';
 import { AddImageComponent } from './add-image/add-image.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { LoginComponent } from './login/login.component';
 
 firebase.initializeApp(environment.firebase);
 @NgModule({
-  declarations: [AppComponent, LocationPage, AddLocationPage, AddImageComponent, AddCommentComponent],
-  entryComponents: [LocationPage, AddLocationPage, AddImageComponent, AddCommentComponent],
+  declarations: [AppComponent, LocationPage, AddLocationPage, AddImageComponent, AddCommentComponent, LoginComponent],
+  entryComponents: [LocationPage, AddLocationPage, AddImageComponent, AddCommentComponent, LoginComponent],
   imports: [
     BrowserModule, 
     IonicModule.forRoot(), 
