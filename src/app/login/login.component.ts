@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { PopoverController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +12,15 @@ export class LoginComponent implements OnInit {
   password: string = "";
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    public pop: PopoverController
   ) { }
 
   ngOnInit() {}
 
   login() {
     this.authService.login(this.email, this.password).then(res => {
-      console.log(this.email);
-      console.log(this.password);
-      console.log(res);
+      this.pop.dismiss();
     })
   }
 

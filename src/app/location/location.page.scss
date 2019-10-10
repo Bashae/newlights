@@ -66,3 +66,17 @@ h3 {
     overflow-wrap: normal;
     white-space: normal;
 }
+li {
+    color: #333;
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+
+    ion-icon.highlight {
+        color: rgb(255, 208, 0);
+    }
+}
+
+ion-icon {
+    font-size: 40px;
+}

@@ -29,18 +29,19 @@ export class AddCommentComponent implements OnInit {
   }
 
   submitReview () {
+    let date = new Date();
+
     let review = {
       're': this.commentText,
       'ra': this.ratingNumber,
       'lid': this.locationID,
       'uid': this.authService.userId,
-      'ufn': 'Andrew',
-      'uln': 'Eechi'
+      'ufn': this.authService.userInfo.fn,
+      'uln': this.authService.userInfo.ln,
+      'dt': date
     }
 
     this.firebaseService.addReview(review).then(res => {
-      console.log('response is');
-      console.log(res);
       this.pop.dismiss();
     })
 

@@ -34,6 +34,11 @@ export class FirebaseService {
     })
   }
 
+  getUserInfo(uid) {
+    var userRef = this.afs.collection("/u").doc(uid);
+    return userRef.get();
+  }
+
   addLocation(value) {
     return this.afs.collection('/l').add(value);
   }
@@ -55,7 +60,11 @@ export class FirebaseService {
   }
 
   addReview(value) {
-    return this.afs.collection('/r').add(value);
+    return this.afs.collection('/l/' + value.lid + '/r').add(value);
+  }
+
+  getReviews(locationId) {
+    return this.afs.collection('/l/' + locationId + '/r', ref => ref.orderBy('dt'));
   }
 
 }

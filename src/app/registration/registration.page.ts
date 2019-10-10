@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -29,7 +29,8 @@ export class RegistrationPage {
       'fn': this.fName,
       'ln': this.lName
     }
-
+    
+    this.authService.userId = uid;
     this.authService.addUser(user);
   }
 

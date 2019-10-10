@@ -8,6 +8,7 @@ import { AddImageComponent } from '../add-image/add-image.component';
 import { PopoverController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 import { LoginComponent } from '../login/login.component';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-location',
@@ -17,13 +18,15 @@ import { LoginComponent } from '../login/login.component';
 export class LocationPage implements OnInit {
   selectedLocation: any;
   selectedTab: string = "info";
+  locationReviews: any;
 
   constructor(
     public nav: NavController,
     public loc: LocationService,
     public modalCtrl: ModalController,
     public popoverController: PopoverController,
-    public authService: AuthService
+    public authService: AuthService,
+    public firebaseService: FirebaseService
   ) { }
 
   ngOnInit() {
@@ -40,7 +43,17 @@ export class LocationPage implements OnInit {
   }
 
   segmentChanged($evt) {
-    this.selectedTab = $evt.detail.value;
+    let tabValue = $evt.detail.value;
+    this.selectedTab = tabValue;
+    if(tabValue === "comments") {
+      this.loadReviews();
+    }
+  }
+
+  loadReviews() {
+    this.firebaseService.getReviews(this.selectedLocation.id).valueChanges().subscribe(res => {
+      this.locationReviews = res;
+    });
   }
 
   async presentAddCommentPopover(ev: any) {
