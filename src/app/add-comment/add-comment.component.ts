@@ -10,6 +10,7 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./add-comment.component.scss'],
 })
 export class AddCommentComponent implements OnInit {
+  @Input("location") location;
   @Input("locationID") locationID;
   commentText: string = '';
   ratingNumber: number = 5;
@@ -30,7 +31,6 @@ export class AddCommentComponent implements OnInit {
 
   submitReview () {
     let date = new Date();
-
     let review = {
       're': this.commentText,
       'ra': this.ratingNumber,
@@ -41,6 +41,7 @@ export class AddCommentComponent implements OnInit {
       'dt': date
     }
 
+    this.reviewService.updateLocationReview(this.locationID, this.location, this.ratingNumber);
     this.firebaseService.addReview(review).then(res => {
       this.pop.dismiss();
     })

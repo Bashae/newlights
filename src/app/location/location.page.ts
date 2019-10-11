@@ -59,7 +59,7 @@ export class LocationPage implements OnInit {
   async presentAddCommentPopover(ev: any) {
     const popover = this.authService.getAuthStatus() ? await this.popoverController.create({
       component: AddCommentComponent,
-      componentProps: {locationID: this.selectedLocation.id},
+      componentProps: {locationID: this.selectedLocation.id, location: this.selectedLocation},
       event: ev,
       translucent: true
     }) : await this.popoverController.create({

@@ -90,7 +90,13 @@
       <ion-label>
         <h2>{{ review.ufn }} {{ review.uln }}</h2>
         <p>{{ review.re }}</p>
-        <h4>Rating is: {{ review.ra }}</h4>
+        <ul style="padding-left: 0;width: 60%;margin: 0;float: right;">
+          <li><ion-icon name="star" class="highlight"></ion-icon></li>
+          <li><ion-icon name="star" [class.highlight]="review.ra >= 2"></ion-icon></li>
+          <li><ion-icon name="star" [class.highlight]="review.ra >= 3"></ion-icon></li>
+          <li><ion-icon name="star" [class.highlight]="review.ra >= 4"></ion-icon></li>
+          <li><ion-icon name="star" [class.highlight]="review.ra == 5"></ion-icon></li>
+        </ul>
       </ion-label>
     </ion-item>
   </ion-list>

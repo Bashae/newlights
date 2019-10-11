@@ -30,7 +30,36 @@ export class ReviewService {
     // })
   }
 
-  updateReview() {
-    // this.locCollection.doc(loc).update(data);
+  getNewRating(totalRating, userRating, currentAmt) {
+    let newReview;
+    let a = totalRating + userRating;
+    let b = a / (currentAmt + 1);
+    return b;
+  }
+
+  incrementMax(totalRating, userRating) {
+    return (totalRating + userRating);
+  }
+
+  incrementReviews(value) {
+    return value++;
+  }
+
+  // amtr
+  // curr
+  // max
+
+  updateLocationReview(locationID, location, userRating) {
+    let newMax    = this.incrementMax(location.max, userRating); // max
+    let newCount  = this.incrementReviews(location.amtr); // amtr
+    let newRating = this.getNewRating(location.max, userRating, location.amtr); // curr
+    
+    let data = {
+      'amtr': newCount,
+      'curr': newRating,
+      'max' : newMax
+    };
+    
+    this.locCollection.doc(locationID).update(data);
   }
 }
