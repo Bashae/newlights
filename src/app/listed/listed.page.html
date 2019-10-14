@@ -13,9 +13,35 @@
     </ion-card-header>
     <ion-card-content>
       <img src="/assets/images/pretty-house.jpg">
-      <ion-button expand="full" shape="round" fill="outline">
-        <ion-icon name="navigate" slots="icon-only"></ion-icon>
-      </ion-button>
+      <!-- <ion-list> -->
+        <!-- <ion-item> -->
+          <!-- Rating: {{ loc.curr }} -->
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <p style="font-size: 16px;float: left;">
+                  <ion-icon name="star" style="font-size: 24px;color: orange;position:relative;top:5px;"></ion-icon>
+                  <ion-icon name="star" style="font-size: 24px;color: orange;position:relative;top:5px;"></ion-icon>
+                  <ion-icon name="star" style="font-size: 24px;color: orange;position:relative;top:5px;"></ion-icon>
+                  ({{ loc.amtr }})
+                </p>
+              </ion-col>
+              <ion-col>
+                <p style="font-size: 16px;float: right;">
+                  <ion-icon name="car" style="font-size: 24px;position:relative;top:5px;right:5px;"></ion-icon>{{ loc.queryMetadata.distance }} Mi.
+                </p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!-- <p style="font-size: 16px;margin-top: 5px;float: left;">
+            <ion-icon name="star" style="position: relative;top: 5px;font-size: 24px;color: orange;"></ion-icon><ion-icon name="star" style="position: relative;top: 5px;font-size: 24px;color: orange;"></ion-icon><ion-icon name="star" style="position: relative;top: 5px;font-size: 24px;color: orange;"></ion-icon> ({{ loc.amtr }})</p>
+          <p style="font-size: 16px;float: right;">{{ loc.queryMetadata.distance }} Mi.</p> -->
+            <!-- </ion-item> -->
+      <!-- </ion-list> -->
+      <!-- <ul>
+        <li>{{ loc.curr }}</li>
+        <li>{{ loc.amtr }}</li>
+      </ul> -->
     </ion-card-content>
   </ion-card>
 

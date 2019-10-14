@@ -117,18 +117,18 @@
                 <form>
                   <ion-list>
                     <ion-item>
-                      <ion-textarea placeholder="Write a Description."></ion-textarea>
+                      <ion-textarea placeholder="Write a Description." [(ngModel)]="locationDescription"></ion-textarea>
                     </ion-item>
                   </ion-list>
                   <ion-grid>
                     <ion-row>
                       <ion-col>
                         <ion-label>Time Start:</ion-label>
-                        <ion-datetime displayFormat="h:mm A" placeholder="Select Time"></ion-datetime>
+                        <ion-datetime displayFormat="h:mm A" placeholder="Select Time" [(ngModel)]="timeStart"></ion-datetime>
                       </ion-col> 
                       <ion-col>
                         <ion-label>Time Start:</ion-label>
-                        <ion-datetime displayFormat="h:mm A" placeholder="Select Time"></ion-datetime>
+                        <ion-datetime displayFormat="h:mm A" placeholder="Select Time" [(ngModel)]="timeEnd"></ion-datetime>
                       </ion-col>
                     </ion-row>
                   </ion-grid>

@@ -40,6 +40,11 @@ export class AddLocationPage {
   @ViewChild('slides', {static: false}) slides: IonSlides;
   selected_location: any;
 
+  locationDescription: any;
+  timeStart: any;
+  timeEnd: any;
+  type: any;
+
   constructor(
     public modalController: ModalController,
     public changeRef: ChangeDetectorRef,
@@ -271,6 +276,17 @@ export class AddLocationPage {
     loc['max'] = 0;
     loc['amtr'] = 0;
     loc['curr'] = 5;
+    // loc['ty'] = this.type;
+
+    if(this.locationDescription) {
+      loc['de'] = this.locationDescription;
+    }
+    if(this.timeStart) {
+      loc['ts'] = this.timeStart;
+    }
+    if(this.timeEnd) {
+      loc['te'] = this.timeEnd;
+    }
     
     this.firebaseService.addLocation(loc).then(function(res) {
       console.log(res);

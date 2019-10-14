@@ -42,7 +42,7 @@ export class ReviewService {
   }
 
   incrementReviews(value) {
-    return value++;
+    return value += 1;
   }
 
   // amtr
