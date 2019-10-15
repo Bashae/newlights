@@ -32,6 +32,7 @@
     "@ionic/angular": "^4.7.1",
     "cordova-admob-sdk": "0.24.1",
     "cordova-android": "8.0.0",
+    "cordova-android-support-gradle-release": "^3.0.1",
     "cordova-browser": "6.0.0",
     "cordova-plugin-admob-free": "0.27.0",
     "cordova-plugin-camera": "^4.1.0",
@@ -88,7 +89,10 @@
         "ANDROID_SUPPORT_V4_VERSION": "27.+"
       },
       "cordova-plugin-telerik-imagepicker": {},
-      "cordova-plugin-admob-free": {}
+      "cordova-plugin-admob-free": {},
+      "cordova-android-support-gradle-release": {
+        "ANDROID_SUPPORT_VERSION": "27.+"
+      }
     },
     "platforms": [
       "browser"
